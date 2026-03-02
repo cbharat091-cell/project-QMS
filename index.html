@@ -1145,9 +1145,21 @@
                 </div>
             </div>
             
+            <!-- Backend URL Configuration (for production deployments) -->
+            <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border-color);">
+                <div class="settings-title">Backend Configuration</div>
+                <div class="form-group">
+                    <label style="font-size: 13px; color: var(--text-secondary);">Backend Server URL</label>
+                    <input type="text" class="modal-input" id="backendUrlInput" placeholder="https://your-api.railway.app" style="font-size: 12px;" />
+                    <div style="font-size: 11px; color: var(--text-secondary); margin-top: 8px;">
+                        Leave empty for localhost:8080 (development). Set this if your backend is on a different server (e.g., Railway, Render).
+                    </div>
+                </div>
+            </div>
+            
             <div class="modal-buttons">
                 <button class="modal-btn secondary" onclick="hideApiKeyModal()">Cancel</button>
-                <button class="modal-btn primary" onclick="saveApiKey()">Save API Key</button>
+                <button class="modal-btn primary" onclick="saveApiKey()">Save Settings</button>
             </div>
         </div>
     </div>
@@ -1219,11 +1231,23 @@
         // ==================== STATE ====================
         // Determine backend URL (localhost vs deployed)
         const getBackendUrl = () => {
+            // Check if backend URL is stored in localStorage (user can set it via settings)
+            const storedBackendUrl = localStorage.getItem('BACKEND_URL');
+            if (storedBackendUrl) {
+                console.log('Using backend URL from localStorage:', storedBackendUrl);
+                return storedBackendUrl;
+            }
+            
+            // For localhost development
             if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
                 return 'http://localhost:8080';
             }
-            // For Vercel deployment, use same origin with /api prefix
-            // Or if backend is deployed separately, set here:
+            
+            // For production Vercel deployment:
+            // Default to Railway backend (user should configure in settings)
+            // Format: https://your-railway-backend.railway.app
+            // If not set, try to use same origin (but will likely fail without Flask)
+            console.warn('No backend URL configured. Set BACKEND_URL in settings.');
             return window.location.protocol + '//' + window.location.host;
         };
         const BACKEND_URL = getBackendUrl();
@@ -2124,19 +2148,7 @@ Provide clear, accurate, and helpful responses. If reviewing documents, analyze 
             if (openaiKey || geminiKey) {
                 document.getElementById('userDisplay').textContent = 'Client API Key Set';
             }
-<<<<<<< HEAD
 
-            // Check server-side status for available providers
-            fetch('/status').then(r => r.json()).then(data => {
-                const providers = data.providers || {};
-                if (providers.gemini || providers.openai) {
-                    const label = providers.gemini ? 'Server: Gemini available' : 'Server: OpenAI available';
-                    document.getElementById('userDisplay').textContent = label;
-                }
-            }).catch(() => {
-                // ignore if server not available
-=======
-            
             // Check server-side status for available providers
             fetch(BACKEND_URL + '/status').then(r => r.json()).then(data => {
                 const providers = data.providers || {};
@@ -2146,7 +2158,6 @@ Provide clear, accurate, and helpful responses. If reviewing documents, analyze 
                 }
             }).catch(() => {
                 // Server not available - that's OK
->>>>>>> blackboxai/fix-error-handling
             });
         }
         
@@ -2175,9 +2186,11 @@ Provide clear, accurate, and helpful responses. If reviewing documents, analyze 
             // Load existing keys
             const openaiKey = localStorage.getItem('openai_api_key') || '';
             const geminiKey = localStorage.getItem('gemini_api_key') || '';
+            const backendUrl = localStorage.getItem('BACKEND_URL') || '';
             
             document.getElementById('apiKeyInput').value = openaiKey;
             document.getElementById('geminiApiKeyInput').value = geminiKey;
+            document.getElementById('backendUrlInput').value = backendUrl;
             
             // Show the last used provider or default to openai
             const lastProvider = localStorage.getItem('preferred_api_provider') || 'openai';
@@ -2191,6 +2204,7 @@ Provide clear, accurate, and helpful responses. If reviewing documents, analyze 
         }
         
         function saveApiKey() {
+            // Save API Key
             if (currentApiProvider === 'openai') {
                 const key = document.getElementById('apiKeyInput').value.trim();
                 if (key) {
@@ -2204,7 +2218,20 @@ Provide clear, accurate, and helpful responses. If reviewing documents, analyze 
                     localStorage.setItem('preferred_api_provider', 'gemini');
                 }
             }
-            document.getElementById('userDisplay').textContent = 'API Key Set';
+            
+            // Save Backend URL if provided
+            const backendUrl = document.getElementById('backendUrlInput').value.trim();
+            if (backendUrl) {
+                localStorage.setItem('BACKEND_URL', backendUrl);
+                console.log('Backend URL saved:', backendUrl);
+                // Reload BACKEND_URL constant (in practice, page reload is needed)
+                alert('Backend URL saved! Please refresh the page for changes to take effect.');
+            } else {
+                localStorage.removeItem('BACKEND_URL');
+                console.log('Backend URL cleared - will use default');
+            }
+            
+            document.getElementById('userDisplay').textContent = 'Settings Saved';
             hideApiKeyModal();
         }
         
