@@ -21,6 +21,14 @@ except ImportError:
     except ImportError:
         pass
 
+# Optional DOCX support
+DOCX_AVAILABLE = False
+try:
+    from docx import Document
+    DOCX_AVAILABLE = True
+except ImportError:
+    pass
+
 # Optionally load .env for local development without committing secrets
 try:
     from dotenv import load_dotenv
@@ -126,6 +134,38 @@ def upload_file():
                 return jsonify({
                     'error': f'PDF extraction failed: {str(e)}',
                     'message': 'The PDF file may be corrupted or in an unsupported format'
+                }), 400
+        elif suffix == '.docx':
+            if not DOCX_AVAILABLE:
+                return jsonify({
+                    'error': 'DOCX extraction not available',
+                    'message': 'Install python-docx for DOCX support'
+                }), 500
+            try:
+                from docx import Document
+                doc = Document(str(tmp_path))
+                content = '\n'.join([p.text for p in doc.paragraphs if p.text.strip()])
+                if not content:
+                    content = '[DOCX file extracted but contains no readable text]'
+            except Exception as e:
+                return jsonify({
+                    'error': f'DOCX extraction failed: {str(e)}',
+                    'message': 'The DOCX file may be corrupted'
+                }), 400
+        elif suffix in ['.doc', '.rtf']:
+            # For DOC and RTF, try basic text extraction or fallback
+            try:
+                # Try reading as text with various encodings
+                content = tmp_path.read_text(encoding='utf-8', errors='ignore')
+                if not content or len(content.strip()) < 10:
+                    # If that doesn't work, try with latin-1
+                    content = tmp_path.read_text(encoding='latin-1', errors='ignore')
+                # Clean up RTF/DOC headers
+                content = '\n'.join([line for line in content.split('\n') if not line.startswith('\\')])
+            except Exception as e:
+                return jsonify({
+                    'error': f'{suffix.upper()} extraction failed: {str(e)}',
+                    'message': f'Cannot extract text from {suffix} files. Please convert to PDF or DOCX'
                 }), 400
         else:
             # Read text file (TXT, MD, etc)

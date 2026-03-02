@@ -1090,8 +1090,8 @@
                 <div class="chat-input-wrapper">
                     <div class="upload-dropzone" id="uploadDropzone" onclick="document.getElementById('fileInput').click()">
                         <div class="upload-icon">📄</div>
-                        <div class="upload-text">Click to upload QMS document for review</div>
-                        <input type="file" id="fileInput" accept=".txt,.md,.pdf" style="display: none;" onchange="handleFileUpload(this)">
+                        <div class="upload-text">Click to upload QMS document</div>
+                        <input type="file" id="fileInput" accept=".txt,.md,.pdf,.docx,.doc,.rtf" style="display: none;" onchange="handleFileUpload(this)">
                     </div>
                     <textarea 
                         class="chat-input" 
@@ -2012,11 +2012,11 @@ Provide clear, accurate, and helpful responses. If reviewing documents, analyze 
         }
         
         function processUploadedFile(file) {
-            const validTypes = ['.txt', '.md', '.pdf'];
+            const validTypes = ['.txt', '.md', '.pdf', '.docx', '.doc', '.rtf'];
             const ext = file.name.substring(file.name.lastIndexOf('.')).toLowerCase();
             
             if (!validTypes.includes(ext)) {
-                alert('Please upload a .txt or .md file');
+                alert('Supported formats: .txt, .md, .pdf, .doc, .docx, .rtf');
                 return;
             }
             
@@ -2043,8 +2043,8 @@ Provide clear, accurate, and helpful responses. If reviewing documents, analyze 
                 sendQuickMessage(`I've uploaded "${file.name}". Please review this QMS document for compliance with ISO 13485, WHO PQ, CE Marking, and IVDR requirements.`);
             };
             
-            if (ext === '.pdf') {
-                // Send PDF to server for text extraction
+            if (['.pdf', '.docx', '.doc', '.rtf'].includes(ext)) {
+                // Send PDF/DOCX/DOC/RTF to server for text extraction
                 const form = new FormData();
                 form.append('file', file);
 
