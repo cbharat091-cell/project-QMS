@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QMS Document Reviewer - Visual Documentation</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #00d9ff, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .subtitle {
+            text-align: center;
+            color: #888;
+            margin-bottom: 30px;
+        }
+        .section {
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .section h2 {
+            color: #00d9ff;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #00d9ff;
+        }
+        .diagram-container {
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 15px;
+        }
+        .logo-container {
+            text-align: center;
+            padding: 40px;
+        }
+        .logo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #00d9ff 0%, #0099cc 100%);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            box-shadow: 0 10px 40px rgba(0,217,255,0.4);
+        }
+        .logo-text {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 15px;
+            color: #00d9ff;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .stat-card.green {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        }
+        .stat-card.orange {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        .stat-card.blue {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+        .stat-number {
+            font-size: 36px;
+            font-weight: bold;
+        }
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        .chart-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        .bar-chart {
+            display: flex;
+            align-items: flex-end;
+            gap: 10px;
+            height: 200px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        .bar {
+            width: 40px;
+            background: linear-gradient(180deg, #00d9ff, #0099cc);
+            border-radius: 5px 5px 0 0;
+            position: relative;
+            transition: transform 0.3s;
+        }
+        .bar:hover {
+            transform: scaleY(1.05);
+        }
+        .bar-label {
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 10px;
+            color: #333;
+            white-space: nowrap;
+        }
+        .bar-value {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            font-weight: bold;
+            color: #333;
+        }
+        .check-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .check-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            color: #333;
+        }
+        .check-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-size: 14px;
+        }
+        .check-icon.pass {
+            background: #10b981;
+            color: white;
+        }
+        .check-icon.fail {
+            background: #ef4444;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔬 MedQMS</h1>
+        <p class="subtitle">AI-Powered Medical Device Quality Management System Reviewer</p>
+        
+        <!-- Logo Section -->
+        <div class="section">
+            <h2>🏢 Project Logo</h2>
+            <div class="logo-container">
+                <div class="logo">🔬</div>
+                <div class="logo-text">MedQMS</div>
+                <p style="margin-top: 10px; color: #888;">Medical QMS Document Reviewer</p>
+            </div>
+        </div>
+
+        <!-- Flowchart Section -->
+        <div class="section">
+            <h2>📊 QMS Review Process Flowchart</h2>
+            <div class="diagram-container">
+                <div class="mermaid">
+                flowchart TD
+                    A[📄 Load QMS Document] --> B{Use AI Review?}
+                    B -->|Yes| C[🤖 OpenAI GPT Review]
+                    B -->|No| D[🔍 Keyword Analysis]
+                    C --> E[📝 Generate AI Report]
+                    D --> F[📋 Run 16 Compliance Checks]
+                    F --> G[📊 Calculate Scores]
+                    G --> H{Overall Score ≥ 0.6?}
+                    H -->|Yes| I[✅ PASS Status]
+                    H -->|No| J[⚠️ Needs Improvement]
+                    E --> K[📄 Final Report]
+                    I --> K
+                    J --> K
+                    
+                    style A fill:#00d9ff,color:#000
+                    style B fill:#ff6b6b,color:#000
+                    style C fill:#4ecdc4,color:#000
+                    style D fill:#95e1d3,color:#000
+                    style E fill:#4ecdc4,color:#000
+                    style F fill:#95e1d3,color:#000
+                    style G fill:#f8b500,color:#000
+                    style H fill:#ff6b6b,color:#000
+                    style I fill:#10b981,color:#000
+                    style J fill:#f39c12,color:#000
+                    style K fill:#00ff88,color:#000
+                </div>
+            </div>
+        </div>
+
+        <!-- System Architecture -->
+        <div class="section">
+            <h2>🏗️ System Architecture</h2>
+            <div class="diagram-container">
+                <div class="mermaid">
+                graph TB
+                    subgraph User_Layer["👤 User Layer"]
+                        UI[Web Interface<br/>CLI Tool]
+                    end
+                    
+                    subgraph Application_Layer["⚙️ Application Layer"]
+                        RE[Review Engine]
+                        CHECK[Check EvaluORM[Textator]
+                        N Normalizer]
+                    end
+                    
+                    subgraph Data_Layer["💾 Data Layer"]
+                        DOC[QMS Documents<br/>.txt, .md]
+                        CHECKS[CHECKS Dictionary<br/>16 Categories]
+                        ENV[Environment<br/>.env]
+                    end
+                    
+                    subgraph AI_Layer["🤖 AI Layer (Optional)"]
+                        OPENAI[OpenAI API]
+                        GPT[GPT-4o Model]
+                    end
+                    
+                    UI --> RE
+                    RE --> CHECK
+                    CHECK --> NORM
+                    RE --> DOC
+                    CHECK --> CHECKS
+                    RE --> OPENAI
+                    OPENAI --> GPT
+                    
+                    style User_Layer fill:#667eea,color:#fff
+                    style Application_Layer fill:#764ba2,color:#fff
+                    style Data_Layer fill:#11998e,color:#fff
+                    style AI_Layer fill:#f093fb,color:#000
+                </div>
+            </div>
+        </div>
+
+        <!-- Statistics Dashboard -->
+        <div class="section">
+            <h2>📈 Review Statistics Dashboard</h2>
+            <div class="stats-grid">
+                <div class="stat-card green">
+                    <div class="stat-number">0.8</div>
+                    <div class="stat-label">Overall Score</div>
+                </div>
+                <div class="stat-card blue">
+                    <div class="stat-number">16</div>
+                    <div class="stat-label">Total Checks</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">15</div>
+                    <div class="stat-label">Passed Checks</div>
+                </div>
+                <div class="stat-card orange">
+                    <div class="stat-number">1</div>
+                    <div class="stat-label">Needs Improvement</div>
+                </div>
+            </div>
+            
+            <h3 style="margin-top: 25px; color: #00d9ff;">Check Results Distribution</h3>
+            <div class="chart-container">
+                <div class="bar-chart">
+                    <div class="bar" style="height: 100%;"><span class="bar-value">1.0</span><span class="bar-label">Doc Ctrl</span></div>
+                    <div class="bar" style="height: 75%;"><span class="bar-value">0.75</span><span class="bar-label">Purpose</span></div>
+                    <div class="bar" style="height: 80%;"><span class="bar-value">0.8</span><span class="bar-label">Roles</span></div>
+                    <div class="bar" style="height: 40%; background: #ef4444;"><span class="bar-value">0.4</span><span class="bar-label">Process</span></div>
+                    <div class="bar" style="height: 40%; background: #ef4444;"><span class="bar-value">0.4</span><span class="bar-label">Risk Mgmt</span></div>
+                    <div class="bar" style="height: 100%;"><span class="bar-value">1.0</span><span class="bar-label">CAPA</span></div>
+                    <div class="bar" style="height: 60%;"><span class="bar-value">0.6</span><span class="bar-label">Records</span></div>
+                    <div class="bar" style="height: 60%;"><span class="bar-value">0.6</span><span class="bar-label">ISO 13485</span></div>
+                    <div class="bar" style="height: 100%;"><span class="bar-value">1.0</span><span class="bar-label">Design</span></div>
+                    <div class="bar" style="height: 100%;"><span class="bar-value">1.0</span><span class="bar-label">Production</span></div>
+                    <div class="bar" style="height: 60%;"><span class="bar-value">0.6</span><span class="bar-label">MDR</span></div>
+                    <div class="bar" style="height: 100%;"><span class="bar-value">1.0</span><span class="bar-label">Labeling</span></div>
+                    <div class="bar" style="height: 100%;"><span class="bar-value">1.0</span><span class="bar-label">ISO 14971</span></div>
+                    <div class="bar" style="height: 83%;"><span class="bar-value">0.83</span><span class="bar-label">Equipment</span></div>
+                    <div class="bar" style="height: 100%;"><span class="bar-value">1.0</span><span class="bar-label">Env Ctrl</span></div>
+                    <div class="bar" style="height: 80%;"><span class="bar-value">0.8</span><span class="bar-label">AI Gov</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Compliance Checklist -->
+        <div class="section">
+            <h2>✅ Compliance Check Results</h2>
+            <div class="check-list">
+                <div class="check-item"><span class="check-icon pass">✓</span> Document control metadata</div>
+                <div class="check-item"><span class="check-icon pass">✓</span> Purpose and scope</div>
+                <div class="check-item"><span class="check-icon pass">✓</span> Roles and responsibilities</div>
+                <div class="check-item"><span class="check-icon fail">✗</span> Process flow and steps</div>
+                <div class="check-item"><span class="check-icon fail">✗</span> Risk management</div>
+                <div class="check-item"><span class="check-icon pass">✓</span> CAPA and nonconformance</div>
+                <div class="check-item"><span class="check-icon pass">✓</span> Records and retention</div>
+                <div class="check-item"><span class="check-icon pass">✓</span> ISO 13485 Compliance</div>
+                <div class="check-item"><span class="check-icon pass">✓</span> Design and Development Controls</div>
+                <div class="check-item"><span class="check-icon pass">✓</span> Production and Process Controls</div>
+                <div class="check-item"><span class="check-icon pass">✓</span> Medical Device Reporting (MDR)</div>
+                <div class="check-item"><span class="check-icon pass">✓</span> Labeling and Traceability</div>
+                <div class="check-item"><span class="check-icon pass">✓</span> Risk Management (ISO 14971)</div>
+                <div class="check-item"><span class="check-icon pass">✓</span> Equipment Qualification</div>
+                <div class="check-item"><span class="check-icon pass">✓</span> Environmental Controls</div>
+                <div class="check-item"><span class="check-icon pass">✓</span> AI Governance and Compliance</div>
+            </div>
+        </div>
+
+        <!-- Key Features -->
+        <div class="section">
+            <h2>🎯 Key Features</h2>
+            <div class="diagram-container">
+                <div class="mermaid">
+                mindmap
+            root((MedQMS))
+                Keyword Analysis
+                    16 Compliance Checks
+                    Score Calculation
+                    Gap Identification
+                AI-Powered Review
+                   -4o
+ OpenAI GPT                    Natural Language
+                    Detailed Recommendations
+                Medical Compliance
+                    ISO 13485
+                    FDA 21 CFR 820
+                    ISO 14971
+                    IVDR
+                Output Options
+                    Human Readable
+                    JSON Export
+                    Pass/Fail Status
+        </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true
+            }
+        });
+    </script>
+</body>
+</html>
+

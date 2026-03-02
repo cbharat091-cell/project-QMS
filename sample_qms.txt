@@ -1,0 +1,31 @@
+# Sample QMS Procedure
+
+## Document Control
+- Title: Quality Management System Procedure
+- Version: 1.0
+- Effective Date: 2024-01-01
+- Document Owner: Quality Manager
+- Approved By: CEO
+
+## Purpose and Scope
+This procedure establishes the quality management system for our organization. It applies to all departments and processes within the company.
+
+## Roles and Responsibilities
+The Quality Manager is responsible for implementing and maintaining the QMS. Each department head is accountable for compliance within their areas.
+
+## Process Flow
+1. Identify process requirements
+2. Document procedures
+3. Implement controls
+4. Monitor and measure outcomes
+5. Continually improve
+
+## Risk Management
+We identify risks and hazards throughout our processes. Severity and probability are assessed for each identified risk. Mitigation strategies are developed and implemented.
+
+## CAPA and Nonconformance
+When nonconformances are identified, corrective action is taken to address root cause. Preventive actions are implemented to avoid recurrence. All CAPA activities are documented and tracked.
+
+## Records and Retention
+All quality records are maintained and retained according to our retention schedule. Documented information is archived for traceability purposes.
+

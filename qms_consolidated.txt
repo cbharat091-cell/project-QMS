@@ -1,0 +1,167 @@
+# Quality Management System Procedure
+
+## Document Control
+- Title: Quality Management System Procedure
+- Version: 3.0 (Consolidated)
+- Effective Date: 2024-03-01
+- Document Owner: Quality Manager
+- Approved By: Chief Regulatory Officer / CEO
+- Reviewed By: Regulatory Affairs
+
+## Purpose and Scope
+This procedure establishes the Quality Management System for the organization. It applies to all departments and processes within the company.
+
+For medical device operations, this procedure also ensures compliance with:
+- ISO 13485:2016 - Medical devices - Quality management systems
+- FDA 21 CFR Part 820 - Quality System Regulation
+- ISO 14971:2019 - Application of risk management to medical devices
+- EU Medical Device Regulation (MDR) 2017/745
+
+This procedure applies to all medical device design, development, production, and distribution activities, as well as general organizational quality processes.
+
+## Regulatory Framework
+Our QMS complies with:
+- ISO 13485:2016 - Medical devices - Quality management systems
+- FDA 21 CFR Part 820 - Quality System Regulation
+- ISO 14971:2019 - Application of risk management to medical devices
+- EU Medical Device Regulation (MDR) 2017/745
+
+## Roles and Responsibilities
+### Quality Manager
+The Quality Manager has overall responsibility for the Quality Management System implementation and maintenance. The Quality Manager ensures that processes are documented and comply with regulatory requirements. The Quality Manager has the authority to stop production when quality issues arise.
+
+### Production Manager
+The Production Manager is responsible for production operations and ensuring that products are manufactured according to approved procedures. The Production Manager coordinates with the Quality Manager on quality matters and ensures personnel are trained.
+
+### Regulatory Affairs
+Regulatory Affairs is responsible for ensuring compliance with applicable regulations including FDA 21 CFR Part 820 and ISO 13485. Regulatory Affairs maintains communications with regulatory authorities and oversees submissions.
+
+### Design Team
+The design team is responsible for design and development activities per approved design plans. The design team ensures design inputs are addressed and design outputs meet requirements. Design reviews are conducted at defined stages with responsible persons identified.
+
+### Document Control
+Document Control is responsible for maintaining controlled documents, managing revisions, and ensuring document availability. All documents are reviewed and approved by authorized personnel before release.
+
+## Process Flow
+1. Identify process requirements
+2. Document procedures
+3. Implement controls
+4. Monitor and measure outcomes
+5. Continually improve
+
+### Process Flow and Steps
+The organization maintains documented procedures for all key processes. Each workflow is defined with clear sequence of activities. Process interfaces are documented to ensure smooth handoffs between departments.
+
+## Design and Development
+### Design Planning
+Design and development planning includes defining design and development stages, review points, responsibilities, and interfaces. Design inputs are documented and include performance requirements, regulatory requirements, and user needs.
+
+### Design Output
+Design output specifications include drawings, specifications, software code, and manufacturing instructions. All design outputs are reviewed and approved before release.
+
+### Design Verification
+Design verification confirms that design outputs meet design input requirements. Testing protocols and results are documented.
+
+### Design Validation
+Design validation is performed under defined conditions using production units or their equivalents. Clinical evaluations and usability studies are conducted as appropriate.
+
+### Design Changes
+All design changes are documented, reviewed, and approved before implementation.
+
+### Design Review
+Design reviews are conducted at defined stages of the design and development process. Review outcomes including decisions and actions are documented.
+
+## Production and Process Controls
+### Production Control
+Production is conducted in accordance with documented procedures and instructions. Work orders specify the product, quantity, and special requirements.
+
+### Process Validation
+Process validation demonstrates that established processes consistently produce conforming products. IQ, OQ, and PQ protocols are executed for critical processes.
+
+### Production Equipment
+Equipment qualification includes installation qualification (IQ), operational qualification (OQ), and performance qualification (PQ). Preventive maintenance schedules are established.
+
+### Environmental Controls
+Environmental conditions are controlled and monitored. Temperature, humidity, and particulate counts are maintained within specified limits for cleanroom operations.
+
+### Product Identification and Traceability
+Each product or lot is identified with unique device identifier (UDI). Traceability records enable reconstruction of the manufacturing history.
+
+## Risk Management
+Risk management activities are conducted per ISO 14971:2019. Risk analysis identifies hazards and estimates risk. Risk evaluation assesses acceptability of identified risks.
+
+We identify risks and hazards throughout our processes. Severity and probability are assessed for each identified risk. Mitigation strategies are developed and implemented.
+
+### Risk Control
+Risk control measures include inherent safety design, protective measures, and information for safety. Residual risk is evaluated after risk controls are implemented.
+
+### Risk Management File
+A risk management file is maintained documenting all risk management activities. Benefits of risk control are weighed against residual risks.
+
+## Medical Device Reporting
+### Adverse Event Reporting
+Adverse events are reported to regulatory authorities within required timeframes. Serious injuries and deaths are reported to FDA per 21 CFR Part 803.
+
+### Complaint Handling
+Complaints are documented, investigated, and trended. Root cause analysis is performed for投诉 related to product quality.
+
+### CAPA and Nonconformance
+Nonconforming product is identified, documented, and evaluated. Corrective actions address root cause of nonconformances. Preventive actions avoid recurrence. CAPA effectiveness is verified.
+
+When nonconformances are identified, corrective action is taken to address root cause. Preventive actions are implemented to avoid recurrence. All CAPA activities are documented and tracked.
+
+## Labeling and Packaging
+### Labeling Requirements
+Labels include product name, manufacturer information, UDI, and intended use. Label integrity is verified throughout shelf life.
+
+### Packaging
+Packaging maintains sterility and protection during shipping. Package integrity testing is performed.
+
+## Records and Retention
+### Quality Records
+All quality records are maintained including design files, production records, test results, and traceability records. Records are legible and retrievable.
+
+All quality records are maintained and retained according to our retention schedule. Documented information is archived for traceability purposes.
+
+### Retention Period
+Records are retained for the longer of: the lifetime of the device, or two years after the last commercial distribution. Device history records (DHR) are retained per regulatory requirements.
+
+## Artificial Intelligence (AI) Governance
+
+### AI Implementation and Control
+Artificial Intelligence (AI) utilized within the organization or integrated into the company website is implemented in a controlled and compliant manner under this Quality Management System. All AI-driven functionality, including automated customer interaction, data analytics, or decision-support tools, is subject to documented validation, risk assessment, and change control procedures.
+
+### Regulatory Compliance
+AI systems comply with:
+- ISO 13485:2016 - Quality management system requirements for medical devices
+- IVDR (In Vitro Diagnostic Regulation) 2017/745 - For AI-powered IVD devices
+- Applicable cybersecurity standards including IEC 62443
+- Data privacy regulations including GDPR and HIPAA
+
+### AI Validation and Risk Assessment
+All AI systems undergo rigorous validation before deployment. Risk assessment is conducted per ISO 14971 to identify hazards associated with AI functionality. Risk evaluation considers AI-specific risks including algorithmic bias, model drift, and output reliability.
+
+### Change Control for AI Systems
+Changes to AI algorithms, models, or underlying data are controlled through the documented change control procedure. All AI modifications require:
+- Impact assessment
+- Regression testing
+- Validation updates
+- Authorized approval
+
+### AI Output Review
+AI outputs are reviewed where necessary to prevent misleading regulatory or product claims. Human oversight is maintained for decisions with regulatory implications. Review procedures ensure accuracy and compliance of AI-generated content.
+
+### Protection of Regulatory Information
+No automated system is permitted to modify regulatory information including CE marking, IVDR status, or WHO Prequalification status without authorized review and approval. All regulatory claims generated by AI are verified by qualified personnel before publication.
+
+### Cybersecurity and Data Privacy
+Data privacy, cybersecurity, and system integrity controls are maintained to ensure protection of confidential information and regulatory compliance. AI systems implement:
+- Access controls and authentication
+- Data encryption
+- Audit trails
+- Vulnerability management
+- Incident response procedures
+
+### Machine Learning Model Management
+Machine learning models are managed throughout their lifecycle including training, deployment, monitoring, and retirement. Model performance is continuously monitored for drift and accuracy degradation. Retraining procedures follow validated processes.
+
