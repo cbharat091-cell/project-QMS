@@ -382,6 +382,13 @@ def get_openai_client() -> OpenAI:
     return OpenAI(api_key=api_key)
 
 
+def get_ollama_client() -> OpenAI:
+    """Initialize and return an Ollama-compatible OpenAI client."""
+    api_key = os.environ.get("OLLAMA_API_KEY", "ollama")
+    base_url = os.environ.get("OLLAMA_BASE_URL", "http://localhost:11434/v1")
+    return OpenAI(api_key=api_key, base_url=base_url)
+
+
 def get_gemini_client(api_key: str = None) -> genai.GenerativeModel:
     """Initialize and return Google Gemini client using API key."""
     if not api_key:
@@ -657,6 +664,80 @@ Please provide your review in JSON format:
         }
 
 
+def ollama_review_document(path: Path, model: str = "llama3.1") -> Dict[str, object]:
+    """Use Ollama (OpenAI-compatible API) to perform AI-powered review."""
+    if not OPENAI_AVAILABLE:
+        return {
+            "document": str(path),
+            "ai_model": model,
+            "review_type": "Ollama AI-powered",
+            "status": "Error",
+            "error": "OpenAI package not installed. Install it with: pip install openai",
+            "overall_score": None,
+            "gaps": [],
+            "recommendations": [],
+            "compliance_assessment": "Ollama AI review failed: openai package not installed",
+        }
+
+    client = get_ollama_client()
+    raw = path.read_text(encoding="utf-8")
+
+    if len(raw) > 75000:
+        raw = raw[:75000] + "\n\n[Document truncated for analysis]"
+
+    prompt = f"""You are an expert Quality Management System (QMS) reviewer specializing in
+medical device compliance (ISO 13485, FDA 21 CFR Part 820, WHO PQ, CE Marking, IVDR).
+
+Please review the following QMS document and provide:
+1. An overall compliance score (0-100)
+2. Identification of any gaps or missing sections
+3. Specific recommendations for improvement
+4. Whether the document meets QMS standards
+
+QMS Document:
+{raw}
+
+Please provide your review in JSON format:
+{{
+    "overall_score": <0-100>,
+    "status": "Pass" or "Needs Improvement",
+    "gaps": [<list of missing or weak sections>],
+    "recommendations": [<list of specific recommendations>],
+    "compliance_assessment": "<brief overall assessment>"
+}}
+"""
+
+    try:
+        response = client.chat.completions.create(
+            model=model,
+            messages=[
+                {"role": "system", "content": "You are an expert QMS compliance reviewer for medical devices."},
+                {"role": "user", "content": prompt},
+            ],
+            temperature=0.3,
+            response_format={"type": "json_object"},
+        )
+
+        result = json.loads(response.choices[0].message.content)
+        result["document"] = str(path)
+        result["ai_model"] = model
+        result["review_type"] = "Ollama AI-powered"
+        return result
+
+    except Exception as e:
+        return {
+            "document": str(path),
+            "ai_model": model,
+            "review_type": "Ollama AI-powered",
+            "status": "Error",
+            "error": str(e),
+            "overall_score": None,
+            "gaps": [],
+            "recommendations": [],
+            "compliance_assessment": f"Ollama AI review failed: {str(e)}",
+        }
+
+
 def print_human_report(report: Dict[str, object]) -> None:
     """Print a human-readable report."""
     print(f"QMS AI Review: {report['document']}")
@@ -741,4 +822,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
