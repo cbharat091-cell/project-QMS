@@ -1685,12 +1685,39 @@
                 apiProvider = 'openai';
             }
             
-            // If no API key, use keyword-based review instead
+            // If no client API key, attempt server-side review first, otherwise fallback
             if (!apiKey) {
-                await runKeywordBasedReview(userMessage, messages);
-                isProcessing = false;
-                updateSendButton();
-                return;
+                try {
+                    // Prepare payload: include uploaded document if present
+                    const payload = {
+                        name: currentDocument ? currentDocument.name : 'message.txt',
+                        content: currentDocument ? currentDocument.content : userMessage,
+                        provider: preferredProvider
+                    };
+
+                    const resp = await fetch('/review', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!resp.ok) throw new Error('Server review failed');
+
+                    const report = await resp.json();
+                    // Render the server's review as an assistant message
+                    removeTypingIndicator();
+                    addAIResponse(JSON.stringify(report, null, 2));
+                    isProcessing = false;
+                    updateSendButton();
+                    return;
+                } catch (err) {
+                    // Fallback to keyword review if server call fails
+                    console.warn('Server review failed, falling back to local keyword review', err);
+                    await runKeywordBasedReview(userMessage, messages);
+                    isProcessing = false;
+                    updateSendButton();
+                    return;
+                }
             }
             
             // Show typing indicator
@@ -1961,14 +1988,36 @@ Provide clear, accurate, and helpful responses. If reviewing documents, analyze 
             };
             
             if (ext === '.pdf') {
-                // For PDF, we'd need a library - just show filename for now
-                currentDocument = {
-                    name: file.name,
-                    content: '[PDF document - text extraction not supported in browser]',
-                    size: file.size,
-                    uploadedAt: new Date().toISOString()
-                };
-                showDocumentPreview();
+                // Send PDF to server for text extraction
+                const form = new FormData();
+                form.append('file', file);
+
+                fetch('/upload', { method: 'POST', body: form })
+                    .then(r => r.json())
+                    .then(data => {
+                        if (data.error) {
+                            alert('PDF extraction failed: ' + data.error);
+                            return;
+                        }
+                        currentDocument = {
+                            name: data.name || file.name,
+                            content: data.content || '',
+                            size: data.size || file.size,
+                            uploadedAt: new Date().toISOString()
+                        };
+
+                        // Show preview and trigger review
+                        showDocumentPreview();
+                        const conv = conversations.find(c => c.id === currentConversationId);
+                        if (conv) {
+                            conv.document = currentDocument;
+                            saveConversations();
+                        }
+                        sendQuickMessage(`I've uploaded "${file.name}". Please review this QMS document for compliance with ISO 13485, WHO PQ, CE Marking, and IVDR requirements.`);
+                    }).catch(err => {
+                        console.error('Upload error', err);
+                        alert('Failed to upload PDF for extraction.');
+                    });
             } else {
                 reader.readAsText(file);
             }
@@ -2015,10 +2064,20 @@ Provide clear, accurate, and helpful responses. If reviewing documents, analyze 
         function loadApiKey() {
             const openaiKey = localStorage.getItem('openai_api_key');
             const geminiKey = localStorage.getItem('gemini_api_key');
-            
             if (openaiKey || geminiKey) {
-                document.getElementById('userDisplay').textContent = 'API Key Set';
+                document.getElementById('userDisplay').textContent = 'Client API Key Set';
             }
+
+            // Check server-side status for available providers
+            fetch('/status').then(r => r.json()).then(data => {
+                const providers = data.providers || {};
+                if (providers.gemini || providers.openai) {
+                    const label = providers.gemini ? 'Server: Gemini available' : 'Server: OpenAI available';
+                    document.getElementById('userDisplay').textContent = label;
+                }
+            }).catch(() => {
+                // ignore if server not available
+            });
         }
         
         function showApiProviderTab(provider) {

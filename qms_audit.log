@@ -1,0 +1,107 @@
+2026-03-02 04:56:31,479 - WARNING - python-dotenv could not parse statement starting at line 1
+2026-03-02 04:56:31,483 - WARNING - python-dotenv could not parse statement starting at line 1
+2026-03-02 04:56:31,487 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://10.0.1.175:8080
+2026-03-02 04:56:31,487 - INFO - [33mPress CTRL+C to quit[0m
+2026-03-02 04:56:33,850 - INFO - 127.0.0.1 - - [02/Mar/2026 04:56:33] "GET / HTTP/1.1" 200 -
+2026-03-02 04:56:34,008 - INFO - 127.0.0.1 - - [02/Mar/2026 04:56:34] "GET /status HTTP/1.1" 200 -
+2026-03-02 04:56:59,902 - INFO - 127.0.0.1 - - [02/Mar/2026 04:56:59] "GET /status HTTP/1.1" 200 -
+2026-03-02 04:57:26,577 - INFO - 127.0.0.1 - - [02/Mar/2026 04:57:26] "GET / HTTP/1.1" 200 -
+2026-03-02 04:57:26,671 - INFO - 127.0.0.1 - - [02/Mar/2026 04:57:26] "GET /status HTTP/1.1" 200 -
+2026-03-02 04:57:27,943 - INFO - 127.0.0.1 - - [02/Mar/2026 04:57:27] "POST /review HTTP/1.1" 200 -
+2026-03-02 04:57:36,394 - INFO - 127.0.0.1 - - [02/Mar/2026 04:57:36] "GET / HTTP/1.1" 200 -
+2026-03-02 04:57:36,466 - INFO - 127.0.0.1 - - [02/Mar/2026 04:57:36] "GET /status HTTP/1.1" 200 -
+2026-03-02 04:57:43,089 - INFO - 127.0.0.1 - - [02/Mar/2026 04:57:43] "POST /review HTTP/1.1" 200 -
+2026-03-02 04:58:37,290 - INFO - 127.0.0.1 - - [02/Mar/2026 04:58:37] "GET /status HTTP/1.1" 200 -
+2026-03-02 04:59:52,613 - INFO - 127.0.0.1 - - [02/Mar/2026 04:59:52] "POST /review HTTP/1.1" 200 -
+2026-03-02 05:00:04,888 - INFO - 127.0.0.1 - - [02/Mar/2026 05:00:04] "POST /review HTTP/1.1" 200 -
+2026-03-02 05:03:10,664 - WARNING - python-dotenv could not parse statement starting at line 1
+2026-03-02 05:03:10,668 - WARNING - python-dotenv could not parse statement starting at line 1
+2026-03-02 05:03:10,670 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://10.0.1.175:8080
+2026-03-02 05:03:10,670 - INFO - [33mPress CTRL+C to quit[0m
+2026-03-02 05:03:15,032 - INFO - 127.0.0.1 - - [02/Mar/2026 05:03:15] "GET / HTTP/1.1" 200 -
+2026-03-02 05:03:15,424 - INFO - 127.0.0.1 - - [02/Mar/2026 05:03:15] "GET /status HTTP/1.1" 200 -
+2026-03-02 05:03:17,081 - INFO - 127.0.0.1 - - [02/Mar/2026 05:03:17] "POST /review HTTP/1.1" 200 -
+2026-03-02 05:03:22,711 - INFO - 127.0.0.1 - - [02/Mar/2026 05:03:22] "POST /upload HTTP/1.1" 200 -
+2026-03-02 05:03:29,207 - INFO - 127.0.0.1 - - [02/Mar/2026 05:03:29] "POST /upload HTTP/1.1" 200 -
+2026-03-02 05:04:01,925 - WARNING - python-dotenv could not parse statement starting at line 1
+2026-03-02 05:04:01,930 - WARNING - python-dotenv could not parse statement starting at line 1
+2026-03-02 05:04:01,935 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://10.0.1.175:8080
+2026-03-02 05:04:01,936 - INFO - [33mPress CTRL+C to quit[0m
+2026-03-02 05:04:05,500 - INFO - 127.0.0.1 - - [02/Mar/2026 05:04:05] "GET / HTTP/1.1" 200 -
+2026-03-02 05:04:05,749 - INFO - 127.0.0.1 - - [02/Mar/2026 05:04:05] "GET /status HTTP/1.1" 200 -
+2026-03-02 05:04:09,143 - INFO - 127.0.0.1 - - [02/Mar/2026 05:04:09] "POST /review HTTP/1.1" 200 -
+2026-03-02 05:04:25,911 - INFO - 127.0.0.1 - - [02/Mar/2026 05:04:25] "POST /upload HTTP/1.1" 200 -
+2026-03-02 05:04:26,129 - INFO - 127.0.0.1 - - [02/Mar/2026 05:04:26] "POST /review HTTP/1.1" 200 -
+2026-03-02 05:04:38,596 - INFO - 127.0.0.1 - - [02/Mar/2026 05:04:38] "POST /review HTTP/1.1" 200 -
+2026-03-02 05:04:49,337 - INFO - 127.0.0.1 - - [02/Mar/2026 05:04:49] "POST /review HTTP/1.1" 200 -
+2026-03-02 05:06:13,486 - INFO - 127.0.0.1 - - [02/Mar/2026 05:06:13] "GET / HTTP/1.1" 200 -
+2026-03-02 05:06:13,953 - INFO - 127.0.0.1 - - [02/Mar/2026 05:06:13] "GET /status HTTP/1.1" 200 -
+2026-03-02 05:06:22,660 - INFO - 127.0.0.1 - - [02/Mar/2026 05:06:22] "POST /upload HTTP/1.1" 200 -
+2026-03-02 05:06:35,358 - INFO - 127.0.0.1 - - [02/Mar/2026 05:06:35] "GET / HTTP/1.1" 200 -
+2026-03-02 05:06:35,529 - INFO - 127.0.0.1 - - [02/Mar/2026 05:06:35] "GET /status HTTP/1.1" 200 -
+2026-03-02 05:06:36,317 - INFO - 127.0.0.1 - - [02/Mar/2026 05:06:36] "[36mGET / HTTP/1.1[0m" 304 -
+2026-03-02 05:06:36,553 - INFO - 127.0.0.1 - - [02/Mar/2026 05:06:36] "GET /status HTTP/1.1" 200 -
+2026-03-02 05:06:40,915 - INFO - 127.0.0.1 - - [02/Mar/2026 05:06:40] "POST /upload HTTP/1.1" 200 -
+2026-03-02 05:07:32,874 - INFO - 127.0.0.1 - - [02/Mar/2026 05:07:32] "POST /upload HTTP/1.1" 200 -
+2026-03-02 05:09:44,802 - INFO - 127.0.0.1 - - [02/Mar/2026 05:09:44] "GET /status HTTP/1.1" 200 -
+2026-03-02 05:09:54,515 - INFO - 127.0.0.1 - - [02/Mar/2026 05:09:54] "POST /review HTTP/1.1" 200 -
+2026-03-02 05:10:05,088 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://10.0.1.175:8080
+2026-03-02 05:10:05,088 - INFO - [33mPress CTRL+C to quit[0m
+2026-03-02 05:10:08,946 - INFO - 127.0.0.1 - - [02/Mar/2026 05:10:08] "GET / HTTP/1.1" 200 -
+2026-03-02 05:10:09,104 - INFO - 127.0.0.1 - - [02/Mar/2026 05:10:09] "GET /status HTTP/1.1" 200 -
+2026-03-02 05:10:11,461 - INFO - 127.0.0.1 - - [02/Mar/2026 05:10:11] "POST /review HTTP/1.1" 200 -
+2026-03-02 05:10:21,621 - INFO - 127.0.0.1 - - [02/Mar/2026 05:10:21] "[36mGET / HTTP/1.1[0m" 304 -
+2026-03-02 05:10:22,063 - INFO - 127.0.0.1 - - [02/Mar/2026 05:10:22] "GET /status HTTP/1.1" 200 -
+2026-03-02 05:10:39,132 - INFO - 127.0.0.1 - - [02/Mar/2026 05:10:39] "POST /upload HTTP/1.1" 200 -
+2026-03-02 05:11:22,772 - INFO - 127.0.0.1 - - [02/Mar/2026 05:11:22] "POST /upload HTTP/1.1" 200 -
+2026-03-02 05:12:42,606 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://10.0.1.175:8080
+2026-03-02 05:12:42,606 - INFO - [33mPress CTRL+C to quit[0m
+2026-03-02 05:12:46,524 - INFO - 127.0.0.1 - - [02/Mar/2026 05:12:46] "GET / HTTP/1.1" 200 -
+2026-03-02 05:12:46,742 - INFO - 127.0.0.1 - - [02/Mar/2026 05:12:46] "GET /status HTTP/1.1" 200 -
+2026-03-02 05:13:04,927 - INFO - 127.0.0.1 - - [02/Mar/2026 05:13:04] "GET / HTTP/1.1" 200 -
+2026-03-02 05:13:18,188 - INFO - 127.0.0.1 - - [02/Mar/2026 05:13:18] "POST /upload HTTP/1.1" 200 -
+2026-03-02 05:13:19,556 - INFO - 127.0.0.1 - - [02/Mar/2026 05:13:19] "GET /status HTTP/1.1" 200 -
+2026-03-02 05:13:29,557 - INFO - 127.0.0.1 - - [02/Mar/2026 05:13:29] "POST /upload HTTP/1.1" 200 -
+2026-03-02 05:13:29,710 - INFO - 127.0.0.1 - - [02/Mar/2026 05:13:29] "POST /review HTTP/1.1" 200 -
+2026-03-02 05:13:50,418 - INFO - 127.0.0.1 - - [02/Mar/2026 05:13:50] "POST /upload HTTP/1.1" 200 -
+2026-03-02 05:13:50,515 - INFO - 127.0.0.1 - - [02/Mar/2026 05:13:50] "POST /review HTTP/1.1" 200 -
+2026-03-02 05:16:23,977 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://10.0.1.175:8080
+2026-03-02 05:16:23,977 - INFO - [33mPress CTRL+C to quit[0m
+2026-03-02 05:16:25,712 - INFO - 127.0.0.1 - - [02/Mar/2026 05:16:25] "GET / HTTP/1.1" 200 -
+2026-03-02 05:16:25,890 - INFO - 127.0.0.1 - - [02/Mar/2026 05:16:25] "GET /status HTTP/1.1" 200 -
+2026-03-02 05:16:37,773 - INFO - 127.0.0.1 - - [02/Mar/2026 05:16:37] "GET / HTTP/1.1" 200 -
+2026-03-02 05:16:53,701 - INFO - 127.0.0.1 - - [02/Mar/2026 05:16:53] "POST /upload HTTP/1.1" 200 -
+2026-03-02 05:18:08,470 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://10.0.1.175:8080
+2026-03-02 05:18:08,470 - INFO - [33mPress CTRL+C to quit[0m
+2026-03-02 05:18:11,074 - INFO - 127.0.0.1 - - [02/Mar/2026 05:18:11] "GET / HTTP/1.1" 200 -
+2026-03-02 05:18:11,372 - INFO - 127.0.0.1 - - [02/Mar/2026 05:18:11] "GET /status HTTP/1.1" 200 -
+2026-03-02 05:18:33,903 - INFO - 127.0.0.1 - - [02/Mar/2026 05:18:33] "GET / HTTP/1.1" 200 -
+2026-03-02 05:18:45,574 - INFO - 127.0.0.1 - - [02/Mar/2026 05:18:45] "GET / HTTP/1.1" 200 -
+2026-03-02 05:19:26,190 - INFO - 127.0.0.1 - - [02/Mar/2026 05:19:26] "GET /status HTTP/1.1" 200 -
+2026-03-02 05:19:48,376 - INFO - 127.0.0.1 - - [02/Mar/2026 05:19:48] "GET / HTTP/1.1" 200 -
+2026-03-02 05:19:48,537 - INFO - 127.0.0.1 - - [02/Mar/2026 05:19:48] "GET /status HTTP/1.1" 200 -
+2026-03-02 05:19:55,583 - INFO - 127.0.0.1 - - [02/Mar/2026 05:19:55] "[36mGET / HTTP/1.1[0m" 304 -
+2026-03-02 05:21:00,844 - INFO - 127.0.0.1 - - [02/Mar/2026 05:21:00] "GET / HTTP/1.1" 200 -
+2026-03-02 05:21:01,036 - INFO - 127.0.0.1 - - [02/Mar/2026 05:21:01] "GET /status HTTP/1.1" 200 -
+2026-03-02 05:21:01,929 - INFO - 127.0.0.1 - - [02/Mar/2026 05:21:01] "POST /review HTTP/1.1" 200 -
