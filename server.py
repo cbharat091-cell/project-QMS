@@ -3,7 +3,7 @@ from pathlib import Path
 import tempfile
 import os
 import io
-from ai_qms_reviewer import review_document, ai_review_document, gemini_review_document
+from ai_qms_reviewer import review_document, ai_review_document, gemini_review_document, ollama_review_document
 
 # Optional PDF extraction - try both libraries for robustness
 PDF_AVAILABLE = False
@@ -58,6 +58,8 @@ def review():
             result = gemini_review_document(tmp_path)
         elif provider == 'openai' and os.environ.get('OPENAI_API_KEY'):
             result = ai_review_document(tmp_path)
+        elif provider == 'ollama':
+            result = ollama_review_document(tmp_path)
         else:
             # Default: keyword-based local review
             result = review_document(tmp_path)
@@ -200,6 +202,7 @@ def status():
     providers = {
         'openai': bool(os.environ.get('OPENAI_API_KEY')),
         'gemini': bool(os.environ.get('GEMINI_API_KEY')),
+        'ollama': True,
     }
     return jsonify({'providers': providers})
 
