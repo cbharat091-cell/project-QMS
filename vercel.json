@@ -2,9 +2,6 @@
   "buildCommand": "echo 'Static site - no build needed'",
   "outputDirectory": ".",
   "public": true,
-  "env": {
-    "BACKEND_URL": "@backend_url"
-  },
   "routes": [
     {
       "src": "/(.*)",
