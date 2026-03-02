@@ -2,14 +2,24 @@ from flask import Flask, request, jsonify, send_from_directory
 from pathlib import Path
 import tempfile
 import os
+import io
 from ai_qms_reviewer import review_document, ai_review_document, gemini_review_document
 
-# Optional PDF extraction
+# Optional PDF extraction - try both libraries for robustness
+PDF_AVAILABLE = False
+PDF_LIBRARY = None
+
 try:
-    import PyPDF2
-    PYPDF_AVAILABLE = True
-except Exception:
-    PYPDF_AVAILABLE = False
+    import pdfplumber
+    PDF_AVAILABLE = True
+    PDF_LIBRARY = 'pdfplumber'
+except ImportError:
+    try:
+        import PyPDF2
+        PDF_AVAILABLE = True
+        PDF_LIBRARY = 'PyPDF2'
+    except ImportError:
+        pass
 
 # Optionally load .env for local development without committing secrets
 try:
@@ -65,6 +75,9 @@ def upload_file():
         return jsonify({'error': 'no file provided'}), 400
 
     f = request.files['file']
+    if f.filename == '':
+        return jsonify({'error': 'no file selected'}), 400
+
     filename = f.filename or 'uploaded'
     suffix = Path(filename).suffix.lower()
 
@@ -74,20 +87,66 @@ def upload_file():
 
     try:
         content = ''
+        size = tmp_path.stat().st_size
+        
         if suffix == '.pdf':
-            if not PYPDF_AVAILABLE:
-                return jsonify({'error': 'PDF extraction not available on server'}), 500
+            if not PDF_AVAILABLE:
+                return jsonify({
+                    'error': 'PDF extraction not available on server',
+                    'message': 'Install pdfplumber or PyPDF2 for PDF support'
+                }), 500
+            
             try:
-                reader = PyPDF2.PdfReader(str(tmp_path))
-                pages = [p.extract_text() or '' for p in reader.pages]
-                content = '\n'.join(pages)
+                # Try pdfplumber first (better extraction)
+                if PDF_LIBRARY == 'pdfplumber':
+                    import pdfplumber
+                    with pdfplumber.open(str(tmp_path)) as pdf:
+                        pages = []
+                        for page in pdf.pages:
+                            text = page.extract_text()
+                            if text:
+                                pages.append(text)
+                        content = '\n'.join(pages)
+                # Fall back to PyPDF2
+                elif PDF_LIBRARY == 'PyPDF2':
+                    import PyPDF2
+                    with open(str(tmp_path), 'rb') as pdf_file:
+                        reader = PyPDF2.PdfReader(pdf_file)
+                        pages = []
+                        for page in reader.pages:
+                            text = page.extract_text()
+                            if text:
+                                pages.append(text)
+                        content = '\n'.join(pages)
+                
+                if not content or content.strip() == '':
+                    content = '[PDF uploaded but text extraction returned empty - document may be scanned/image-based]'
+                    
             except Exception as e:
-                content = f'[PDF extraction failed: {e}]'
+                return jsonify({
+                    'error': f'PDF extraction failed: {str(e)}',
+                    'message': 'The PDF file may be corrupted or in an unsupported format'
+                }), 400
         else:
-            # Read text file
-            content = tmp_path.read_text(encoding='utf-8', errors='ignore')
+            # Read text file (TXT, MD, etc)
+            try:
+                content = tmp_path.read_text(encoding='utf-8', errors='replace')
+            except Exception as e:
+                return jsonify({
+                    'error': f'Failed to read file: {str(e)}'
+                }), 400
 
-        return jsonify({'name': filename, 'content': content, 'size': tmp_path.stat().st_size})
+        return jsonify({
+            'name': filename,
+            'content': content,
+            'size': size,
+            'success': True
+        })
+        
+    except Exception as e:
+        return jsonify({
+            'error': f'Upload failed: {str(e)}'
+        }), 500
     finally:
         try:
             tmp_path.unlink()

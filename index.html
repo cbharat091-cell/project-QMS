@@ -1217,6 +1217,17 @@
 
     <script>
         // ==================== STATE ====================
+        // Determine backend URL (localhost vs deployed)
+        const getBackendUrl = () => {
+            if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                return 'http://localhost:8080';
+            }
+            // For Vercel deployment, use same origin with /api prefix
+            // Or if backend is deployed separately, set here:
+            return window.location.protocol + '//' + window.location.host;
+        };
+        const BACKEND_URL = getBackendUrl();
+
         let conversations = [];
         let currentConversationId = null;
         let currentDocument = null;
@@ -1685,21 +1696,34 @@
                 apiProvider = 'openai';
             }
             
+<<<<<<< HEAD
             // If no client API key, attempt server-side review first, otherwise fallback
             if (!apiKey) {
                 try {
                     // Prepare payload: include uploaded document if present
+=======
+            // If no API key, use server-side review (if available) or fallback to local
+            if (!apiKey) {
+                showTypingIndicator();
+                try {
+                    // Try server-side review first
+>>>>>>> blackboxai/fix-error-handling
                     const payload = {
                         name: currentDocument ? currentDocument.name : 'message.txt',
                         content: currentDocument ? currentDocument.content : userMessage,
                         provider: preferredProvider
                     };
+<<<<<<< HEAD
 
                     const resp = await fetch('/review', {
+=======
+                    const resp = await fetch(BACKEND_URL + '/review', {
+>>>>>>> blackboxai/fix-error-handling
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(payload)
                     });
+<<<<<<< HEAD
 
                     if (!resp.ok) throw new Error('Server review failed');
 
@@ -1718,6 +1742,38 @@
                     updateSendButton();
                     return;
                 }
+=======
+                    if (!resp.ok) throw new Error('Server review failed');
+                    const report = await resp.json();
+                    removeTypingIndicator();
+                    
+                    // Format the server response nicely
+                    let formattedResponse = `## QMS Review Report\n\n`;
+                    if (report.overall_score !== null && report.overall_score !== undefined) {
+                        formattedResponse += `**Overall Score:** ${report.overall_score}%\n`;
+                        formattedResponse += `**Status:** ${report.status}\n\n`;
+                    }
+                    if (report.results) {
+                        formattedResponse += `### Compliance Checks:\n\n`;
+                        for (const result of report.results) {
+                            const icon = result.passed ? '✅' : '❌';
+                            formattedResponse += `${icon} **${result.check}**: ${Math.round(result.score * 100)}%\n`;
+                        }
+                    }
+                    if (!report.error) {
+                        addAIResponse(formattedResponse);
+                    } else {
+                        addAIResponse(`Server review error: ${report.error}`);
+                    }
+                } catch (err) {
+                    console.warn('Server review failed, falling back to local', err);
+                    removeTypingIndicator();
+                    await runKeywordBasedReview(userMessage, messages);
+                }
+                isProcessing = false;
+                updateSendButton();
+                return;
+>>>>>>> blackboxai/fix-error-handling
             }
             
             // Show typing indicator
@@ -1992,7 +2048,11 @@ Provide clear, accurate, and helpful responses. If reviewing documents, analyze 
                 const form = new FormData();
                 form.append('file', file);
 
+<<<<<<< HEAD
                 fetch('/upload', { method: 'POST', body: form })
+=======
+                fetch(BACKEND_URL + '/upload', { method: 'POST', body: form })
+>>>>>>> blackboxai/fix-error-handling
                     .then(r => r.json())
                     .then(data => {
                         if (data.error) {
@@ -2067,6 +2127,7 @@ Provide clear, accurate, and helpful responses. If reviewing documents, analyze 
             if (openaiKey || geminiKey) {
                 document.getElementById('userDisplay').textContent = 'Client API Key Set';
             }
+<<<<<<< HEAD
 
             // Check server-side status for available providers
             fetch('/status').then(r => r.json()).then(data => {
@@ -2077,6 +2138,18 @@ Provide clear, accurate, and helpful responses. If reviewing documents, analyze 
                 }
             }).catch(() => {
                 // ignore if server not available
+=======
+            
+            // Check server-side status for available providers
+            fetch(BACKEND_URL + '/status').then(r => r.json()).then(data => {
+                const providers = data.providers || {};
+                if (providers.gemini || providers.openai) {
+                    const label = providers.gemini ? 'Server: Gemini' : 'Server: OpenAI';
+                    document.getElementById('userDisplay').textContent = label;
+                }
+            }).catch(() => {
+                // Server not available - that's OK
+>>>>>>> blackboxai/fix-error-handling
             });
         }
         
